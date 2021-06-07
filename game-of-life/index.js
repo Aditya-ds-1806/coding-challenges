@@ -1,6 +1,8 @@
-const root = document.documentElement;
 let dims = [10, 10];
 let cells;
+let DELAY_MS = 500;
+let ALIVE_PROBABILITY = 0.5;
+let paused = false;
 
 const pickr = Pickr.create({
     el: '.pickr',
@@ -25,23 +27,14 @@ const pickr = Pickr.create({
 });
 
 pickr.on('change', (color, src, instance) => {
+    const root = document.documentElement;
     root.style.setProperty('--color', color.toRGBA().toString());
     const [r, g, b, a] = color.toRGBA();
     root.style.setProperty('--h1-color', `rgb(${255 - r}, ${255 - g}, ${255 - b})`);
     instance.applyColor();
 });
 
-document.querySelector('#rows').addEventListener('input', function () {
-    root.style.setProperty('--rows', this.value);
-    initGrid(this.value, window.getComputedStyle(root).getPropertyValue('--cols'));
-});
-
-document.querySelector('#cols').addEventListener('input', function () {
-    root.style.setProperty('--cols', this.value);
-    initGrid(window.getComputedStyle(root).getPropertyValue('--rows'), this.value);
-});
-
-const delay = function (ms) {
+const delay = (ms) => {
     return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
@@ -68,20 +61,17 @@ const initGrid = (rows, cols) => {
     document.querySelector('.container').innerHTML = '';
     for (let i = 0; i < rows * cols; i++) {
         const div = document.createElement('div');
-        const rand = Math.random() < 0.5 ? 0 : 1;
+        const rand = Math.random() < ALIVE_PROBABILITY ? 0 : 1;
         div.setAttribute('data-state', rand.toString());
         document.querySelector('.container').append(div);
     }
 }
 
-initGrid(10, 10);
-
-cells = document.querySelectorAll('.container div');
-
-(async () => {
+const simulate = async () => {
+    cells = document.querySelectorAll('.container div');
     while (true) {
         let changes = 0;
-        await delay(500);
+        await delay(DELAY_MS);
         cells.forEach(async (cell, i) => {
             const x = i % dims[0];
             const y = Math.floor(i / dims[1]);
@@ -95,7 +85,44 @@ cells = document.querySelectorAll('.container div');
                 changes++;
             }
         });
-        if (changes === 0) break;
+        if (changes === 0 || paused) break;
     }
-    console.log('ended');
-})();
+}
+
+document.querySelector('#rows').addEventListener('input', function () {
+    const root = document.documentElement;
+    dims[0] = this.value;
+    root.style.setProperty('--rows', this.value);
+    initGrid(this.value, window.getComputedStyle(root).getPropertyValue('--cols'));
+});
+
+document.querySelector('#cols').addEventListener('input', function () {
+    const root = document.documentElement;
+    dims[1] = this.value;
+    root.style.setProperty('--cols', this.value);
+    initGrid(window.getComputedStyle(root).getPropertyValue('--rows'), this.value);
+});
+
+document.querySelector('#delay').addEventListener('input', function () {
+    DELAY_MS = this.value;
+});
+
+document.querySelector('#liveProbability').addEventListener('input', function () {
+    ALIVE_PROBABILITY = this.value;
+});
+
+document.querySelector('#play').addEventListener('click', () => {
+    paused = false;
+    simulate();
+});
+
+document.querySelector('#pause').addEventListener('click', () => paused = true);
+
+document.querySelector('#clear').addEventListener('click', () => {
+    cells.forEach((div) => {
+        div.dataset.state = 0;
+    });
+});
+
+initGrid(dims[0], dims[1]);
+simulate();
