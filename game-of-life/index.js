@@ -65,10 +65,10 @@ const initGrid = (rows, cols) => {
         div.setAttribute('data-state', rand.toString());
         document.querySelector('.container').append(div);
     }
+    cells = document.querySelectorAll('.container div');
 }
 
 const simulate = async () => {
-    cells = document.querySelectorAll('.container div');
     while (true) {
         let changes = 0;
         await delay(DELAY_MS);
