@@ -1,13 +1,48 @@
-const dims = [10, 10];
 const root = document.documentElement;
+let dims = [10, 10];
 let cells;
 
-// root.style.setProperty('--color', 'green');
+const pickr = Pickr.create({
+    el: '.pickr',
+    theme: 'classic',
+    conparison: false,
+    swatches: null,
+    components: {
+        preview: true,
+        opacity: true,
+        hue: true,
+        interaction: {
+            hex: true,
+            rgba: true,
+            hsla: true,
+            hsva: false,
+            cmyk: true,
+            input: true,
+            clear: false,
+            save: false
+        }
+    }
+});
+
+pickr.on('change', (color, src, instance) => {
+    root.style.setProperty('--color', color.toRGBA().toString());
+    const [r, g, b, a] = color.toRGBA();
+    root.style.setProperty('--h1-color', `rgb(${255 - r}, ${255 - g}, ${255 - b})`);
+    instance.applyColor();
+});
+
+document.querySelector('#rows').addEventListener('input', function () {
+    root.style.setProperty('--rows', this.value);
+    initGrid(this.value, window.getComputedStyle(root).getPropertyValue('--cols'));
+});
+
+document.querySelector('#cols').addEventListener('input', function () {
+    root.style.setProperty('--cols', this.value);
+    initGrid(window.getComputedStyle(root).getPropertyValue('--rows'), this.value);
+});
 
 const delay = function (ms) {
-    return new Promise((resolve) => {
-        setTimeout(resolve, ms);
-    });
+    return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
 const getNeighbourStates = (x, y) => {
@@ -29,12 +64,17 @@ const getNeighbourStates = (x, y) => {
     return states;
 }
 
-for (let i = 0; i < dims[0] * dims[1]; i++) {
-    const div = document.createElement('div');
-    const rand = Math.random() < 0.5 ? 0 : 1;
-    div.setAttribute('data-state', rand.toString());
-    document.querySelector('.container').append(div);
+const initGrid = (rows, cols) => {
+    document.querySelector('.container').innerHTML = '';
+    for (let i = 0; i < rows * cols; i++) {
+        const div = document.createElement('div');
+        const rand = Math.random() < 0.5 ? 0 : 1;
+        div.setAttribute('data-state', rand.toString());
+        document.querySelector('.container').append(div);
+    }
 }
+
+initGrid(10, 10);
 
 cells = document.querySelectorAll('.container div');
 
