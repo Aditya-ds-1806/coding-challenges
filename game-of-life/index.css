@@ -38,3 +38,9 @@ div.container div {
 div.container div[data-state='1'] {
     background-color: var(--color);
 }
+
+footer {
+    background-color: var(--color);
+    color: var(--h1-color);
+    border-top: 3px solid var(--h1-color);
+}
