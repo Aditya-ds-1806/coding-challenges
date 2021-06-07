@@ -18,6 +18,10 @@ nav {
     border-bottom: 3px solid var(--h1-color);
 }
 
+svg#cog {
+    color: var(--h1-color);
+}
+
 div.container {
     display: grid;
     grid-template-rows: repeat(var(--rows), 1fr);
