@@ -2,10 +2,20 @@
     --color: #000;
     --rows: 10;
     --cols: 10;
+    --h1-color: #FFF;
 }
 
 body {
     font-family: 'Poppins', sans-serif;
+}
+
+nav h1 {
+    color: var(--h1-color);
+}
+
+nav {
+    background-color: var(--color);
+    border-bottom: 3px solid var(--h1-color);
 }
 
 div.container {
