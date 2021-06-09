@@ -64,6 +64,10 @@ const initGrid = (rows, cols) => {
         const rand = Math.random() < ALIVE_PROBABILITY ? 0 : 1;
         div.setAttribute('data-state', rand.toString());
         document.querySelector('.container').append(div);
+        div.addEventListener('click', () => {
+            const state = Number(!Number(div.dataset.state))
+            div.dataset.state = state;
+        });
     }
     cells = document.querySelectorAll('.container div');
 }
