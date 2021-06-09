@@ -56,6 +56,81 @@
             </div>
         </div>
     </div>
+    <div class="modal fade" id="library-modal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Library</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <section>
+                        <h1 class="fs-5">Still lifes</h1>
+                        <hr class="mt-0 mb-4">
+                        <div class="row">
+                            <div class="col-4 text-center mb-3">
+                                <img src="assets/block.jpg" height="100" alt="life">
+                            </div>
+                            <div class="col-4 text-center mb-3">
+                                <img src="assets/beehive.jpg" height="100" alt="beehive">
+                            </div>
+                            <div class="col-4 text-center mb-3">
+                                <img src="assets/loaf.jpg" height="100" alt="loaf">
+                            </div>
+                            <div class="col-4 text-center mb-3">
+                                <img src="assets/boat.jpg" height="100" alt="loaf">
+                            </div>
+                            <div class="col-4 text-center mb-3">
+                                <img src="assets/tub.jpg" height="100" alt="loaf">
+                            </div>
+                        </div>
+                    </section>
+                    <section>
+                        <h1 class="fs-5">Oscillators</h1>
+                        <hr class="mt-0 mb-4">
+                        <div class="row">
+                            <div class="col-4 text-center mb-3">
+                                <img src="assets/blinker.gif" height="100" alt="life">
+                            </div>
+                            <div class="col-4 text-center mb-3">
+                                <img src="assets/toad.gif" height="100" alt="beehive">
+                            </div>
+                            <div class="col-4 text-center mb-3">
+                                <img src="assets/beacon.gif" height="100" alt="loaf">
+                            </div>
+                            <div class="col-4 text-center mb-3">
+                                <img src="assets/pulsar.gif" height="100" alt="loaf">
+                            </div>
+                            <div class="col-4 text-center mb-3">
+                                <img src="assets/penta-decathlon.gif" height="100" alt="loaf">
+                            </div>
+                        </div>
+                    </section>
+                    <section>
+                        <h1 class="fs-5">Spaceships</h1>
+                        <hr class="mt-0 mb-4">
+                        <div class="row">
+                            <div class="col-4 text-center mb-3">
+                                <img src="assets/glider.gif" height="100" alt="life">
+                            </div>
+                            <div class="col-4 text-center mb-3">
+                                <img src="assets/LWSS.gif" height="100" alt="beehive">
+                            </div>
+                            <div class="col-4 text-center mb-3">
+                                <img src="assets/MWSS.gif" height="100" alt="loaf">
+                            </div>
+                            <div class="col-4 text-center mb-3">
+                                <img src="assets/HWSS.gif" height="100" alt="loaf">
+                            </div>
+                        </div>
+                    </section>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <footer class="text-center py-2">
         <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none"
             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mx-3"
@@ -73,6 +148,12 @@
             role="button" id="clear">
             <line x1="18" y1="6" x2="6" y2="18"></line>
             <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mx-3"
+            role="button" data-bs-toggle="modal" data-bs-target="#library-modal" id="library">
+            <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" />
+            <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" />
         </svg>
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js"
