@@ -5,35 +5,37 @@ let DELAY_MS = 500;
 let ALIVE_PROBABILITY = 0.5;
 let paused = false;
 
-const pickr = Pickr.create({
-    el: '.pickr',
-    theme: 'classic',
-    conparison: false,
-    swatches: null,
-    components: {
-        preview: true,
-        opacity: true,
-        hue: true,
-        interaction: {
-            hex: true,
-            rgba: true,
-            hsla: true,
-            hsva: false,
-            cmyk: true,
-            input: true,
-            clear: false,
-            save: false
+const initPickr = () => {
+    const pickr = Pickr.create({
+        el: '.pickr',
+        theme: 'classic',
+        conparison: false,
+        swatches: null,
+        components: {
+            preview: true,
+            opacity: true,
+            hue: true,
+            interaction: {
+                hex: true,
+                rgba: true,
+                hsla: true,
+                hsva: false,
+                cmyk: true,
+                input: true,
+                clear: false,
+                save: false
+            }
         }
-    }
-});
+    });
 
-pickr.on('change', (color, src, instance) => {
-    const root = document.documentElement;
-    root.style.setProperty('--color', color.toRGBA().toString());
-    const [r, g, b, a] = color.toRGBA();
-    root.style.setProperty('--h1-color', `rgb(${255 - r}, ${255 - g}, ${255 - b})`);
-    instance.applyColor();
-});
+    pickr.on('change', (color, src, instance) => {
+        const root = document.documentElement;
+        root.style.setProperty('--color', color.toRGBA().toString());
+        const [r, g, b, a] = color.toRGBA();
+        root.style.setProperty('--h1-color', `rgb(${255 - r}, ${255 - g}, ${255 - b})`);
+        instance.applyColor();
+    });
+}
 
 const delay = (ms) => {
     return new Promise((resolve) => setTimeout(resolve, ms));
@@ -98,40 +100,49 @@ const simulate = async () => {
     console.log('ended');
 }
 
-document.querySelector('#rows').addEventListener('input', function () {
+const updateRows = function () {
     const root = document.documentElement;
     dims[0] = this.value;
     root.style.setProperty('--rows', this.value);
     initGrid(this.value, window.getComputedStyle(root).getPropertyValue('--cols'));
-});
+}
 
-document.querySelector('#cols').addEventListener('input', function () {
+const updateColumns = function () {
     const root = document.documentElement;
     dims[1] = this.value;
     root.style.setProperty('--cols', this.value);
     initGrid(window.getComputedStyle(root).getPropertyValue('--rows'), this.value);
-});
+}
 
-document.querySelector('#delay').addEventListener('input', function () {
+const setDelay = function () {
     DELAY_MS = this.value;
-});
+}
 
-document.querySelector('#liveProbability').addEventListener('input', function () {
+const setProbability = function () {
     ALIVE_PROBABILITY = this.value;
-});
+}
 
-document.querySelector('#play').addEventListener('click', () => {
+const play = () => {
     paused = false;
     simulate();
-});
+}
 
-document.querySelector('#pause').addEventListener('click', () => paused = true);
+const pause = () => paused = true;
 
-document.querySelector('#clear').addEventListener('click', () => {
+const clearGrid = () => {
     cells.forEach((div) => div.dataset.state = 0);
     currentGen = new Array(dims[0] * dims[1]).fill(0);
     nextGen = [];
-});
+}
 
+document.querySelector('#rows').addEventListener('input', updateRows);
+document.querySelector('#cols').addEventListener('input', updateColumns);
+document.querySelector('#delay').addEventListener('input', setDelay);
+document.querySelector('#liveProbability').addEventListener('input', setProbability);
+document.querySelector('#play').addEventListener('click', play);
+document.querySelector('#pause').addEventListener('click', pause);
+document.querySelector('#clear').addEventListener('click', clearGrid);
+
+initPickr();
 initGrid(dims[0], dims[1]);
 simulate();
