@@ -1,4 +1,5 @@
 let dims = [10, 10];
+let cells;
 let currentGen, nextGen;
 let DELAY_MS = 500;
 let ALIVE_PROBABILITY = 0.5;
@@ -69,6 +70,7 @@ const initGrid = (rows, cols) => {
             currentGen[i] = state;
         });
     }
+    cells = document.querySelectorAll('.container div');
 }
 
 const simulate = async () => {
@@ -82,11 +84,11 @@ const simulate = async () => {
             const neighbours = getNeighbourStates(x, y);
             if (cell === 0 && neighbours.live === 3) {
                 nextGen[i] = 1;
-                document.querySelectorAll('.container div')[i].dataset.state = 1;
+                cells[i].dataset.state = 1;
                 changes++;
             } else if (cell === 1 && neighbours.live !== 2 && neighbours.live !== 3) {
                 nextGen[i] = 0;
-                document.querySelectorAll('.container div')[i].dataset.state = 0;
+                cells[i].dataset.state = 0;
                 changes++;
             }
         });
@@ -126,7 +128,7 @@ document.querySelector('#play').addEventListener('click', () => {
 document.querySelector('#pause').addEventListener('click', () => paused = true);
 
 document.querySelector('#clear').addEventListener('click', () => {
-    document.querySelectorAll('.container div').forEach((div) => div.dataset.state = 0);
+    cells.forEach((div) => div.dataset.state = 0);
     currentGen = new Array(dims[0] * dims[1]).fill(0);
     nextGen = [];
 });
