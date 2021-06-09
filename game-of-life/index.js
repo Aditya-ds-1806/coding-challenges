@@ -130,9 +130,12 @@ const play = () => {
 const pause = () => paused = true;
 
 const clearGrid = () => {
-    cells.forEach((div) => div.dataset.state = 0);
-    currentGen = new Array(dims[0] * dims[1]).fill(0);
-    nextGen = [];
+    pause();
+    setTimeout(() => {
+        cells.forEach((div) => div.dataset.state = 0);
+        currentGen = new Array(dims[0] * dims[1]).fill(0);
+        nextGen = [];
+    }, DELAY_MS);
 }
 
 document.querySelector('#rows').addEventListener('input', updateRows);
