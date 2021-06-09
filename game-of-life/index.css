@@ -37,6 +37,13 @@ div.container div {
     align-items: center;
     background-color: white;
     text-align: center;
+    transition: transform 400ms, background-color 200ms;
+    cursor: pointer;
+}
+
+div.container div:hover {
+    transform: scale(1.2);
+    border: 3px solid var(--color)
 }
 
 div.container div[data-state='1'] {
