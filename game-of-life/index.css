@@ -37,7 +37,7 @@ div.container div {
     align-items: center;
     background-color: white;
     text-align: center;
-    transition: transform 400ms, background-color 200ms;
+    transition: transform 400ms;
     cursor: pointer;
 }
 
