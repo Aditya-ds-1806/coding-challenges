@@ -4,6 +4,7 @@ let currentGen, nextGen;
 let DELAY_MS = 500;
 let ALIVE_PROBABILITY = 0.5;
 let paused = false;
+const libModal = new bootstrap.Modal(document.getElementById('library-modal'));
 
 const initPickr = () => {
     const pickr = Pickr.create({
@@ -57,12 +58,12 @@ const getNeighbourStates = (x, y) => {
     return states;
 }
 
-const initGrid = (rows, cols) => {
+const initGrid = (dims, random = false) => {
     currentGen = [];
     document.querySelector('.container').innerHTML = '';
-    for (let i = 0; i < rows * cols; i++) {
+    for (let i = 0; i < dims[0] * dims[1]; i++) {
         const div = document.createElement('div');
-        const rand = Math.random() < ALIVE_PROBABILITY ? 0 : 1;
+        const rand = random ? Math.random() < ALIVE_PROBABILITY ? 0 : 1 : 0;
         currentGen.push(rand);
         div.setAttribute('data-state', rand);
         document.querySelector('.container').append(div);
@@ -100,18 +101,13 @@ const simulate = async () => {
     console.log('ended');
 }
 
-const updateRows = function () {
-    const root = document.documentElement;
-    dims[0] = this.value;
-    root.style.setProperty('--rows', this.value);
-    initGrid(this.value, window.getComputedStyle(root).getPropertyValue('--cols'));
-}
-
-const updateColumns = function () {
-    const root = document.documentElement;
-    dims[1] = this.value;
-    root.style.setProperty('--cols', this.value);
-    initGrid(window.getComputedStyle(root).getPropertyValue('--rows'), this.value);
+const setDims = function (
+    rows = window.getComputedStyle(document.documentElement).getPropertyValue('--rows'),
+    cols = window.getComputedStyle(document.documentElement).getPropertyValue('--cols')
+) {
+    dims = [rows, cols];
+    document.documentElement.style.setProperty('--rows', rows);
+    document.documentElement.style.setProperty('--cols', cols);
 }
 
 const setDelay = function () {
@@ -138,14 +134,33 @@ const clearGrid = () => {
     }, DELAY_MS);
 }
 
-document.querySelector('#rows').addEventListener('input', updateRows);
-document.querySelector('#cols').addEventListener('input', updateColumns);
+const loadPattern = (img) => {
+    const { rows, cols, live } = img.dataset;
+    setDims(rows, cols);
+    initGrid(dims);
+    live.split(',').forEach((idx) => cells[idx].dataset.state = 1);
+}
+
+document.querySelector('#rows').addEventListener('input', function () {
+    setDims(this.value);
+    initGrid(dims, true);
+});
+document.querySelector('#cols').addEventListener('input', function () {
+    setDims(undefined, this.value);
+    initGrid(dims, true);
+});
 document.querySelector('#delay').addEventListener('input', setDelay);
 document.querySelector('#liveProbability').addEventListener('input', setProbability);
 document.querySelector('#play').addEventListener('click', play);
 document.querySelector('#pause').addEventListener('click', pause);
 document.querySelector('#clear').addEventListener('click', clearGrid);
+document.querySelectorAll('#library-modal img').forEach(img => {
+    img.addEventListener('click', () => {
+        loadPattern(img);
+        libModal.hide();
+    });
+});
 
 initPickr();
-initGrid(dims[0], dims[1]);
+initGrid(dims, true);
 simulate();
