@@ -1,5 +1,5 @@
 let dims = [10, 10];
-let cells, next;
+let currentGen, nextGen;
 let DELAY_MS = 500;
 let ALIVE_PROBABILITY = 0.5;
 let paused = false;
@@ -43,30 +43,30 @@ const getNeighbourStates = (x, y) => {
         live: 0,
         dead: 0
     };
-    if (y - 1 >= 0) cells[dims[1] * (y - 1) + x] === 0 ? states.dead++ : states.live++;
-    if (y - 1 >= 0 && x - 1 >= 0) cells[dims[1] * (y - 1) + x - 1] === 0 ? states.dead++ : states.live++;
-    if (y - 1 >= 0 && x + 1 < dims[1]) cells[dims[1] * (y - 1) + x + 1] === 0 ? states.dead++ : states.live++;
-    if (y + 1 < dims[0] && x - 1 >= 0) cells[dims[1] * (y + 1) + x - 1] === 0 ? states.dead++ : states.live++;
-    if (y + 1 < dims[0] && x + 1 < dims[1]) cells[dims[1] * (y + 1) + x + 1] === 0 ? states.dead++ : states.live++;
-    if (x + 1 < dims[1]) cells[dims[1] * y + x + 1] === 0 ? states.dead++ : states.live++;
-    if (x - 1 >= 0) cells[dims[1] * y + x - 1] === 0 ? states.dead++ : states.live++;
-    if (y + 1 < dims[0]) cells[dims[1] * (y + 1) + x] === 0 ? states.dead++ : states.live++;
+    if (y - 1 >= 0) currentGen[dims[1] * (y - 1) + x] === 0 ? states.dead++ : states.live++;
+    if (y - 1 >= 0 && x - 1 >= 0) currentGen[dims[1] * (y - 1) + x - 1] === 0 ? states.dead++ : states.live++;
+    if (y - 1 >= 0 && x + 1 < dims[1]) currentGen[dims[1] * (y - 1) + x + 1] === 0 ? states.dead++ : states.live++;
+    if (y + 1 < dims[0] && x - 1 >= 0) currentGen[dims[1] * (y + 1) + x - 1] === 0 ? states.dead++ : states.live++;
+    if (y + 1 < dims[0] && x + 1 < dims[1]) currentGen[dims[1] * (y + 1) + x + 1] === 0 ? states.dead++ : states.live++;
+    if (x + 1 < dims[1]) currentGen[dims[1] * y + x + 1] === 0 ? states.dead++ : states.live++;
+    if (x - 1 >= 0) currentGen[dims[1] * y + x - 1] === 0 ? states.dead++ : states.live++;
+    if (y + 1 < dims[0]) currentGen[dims[1] * (y + 1) + x] === 0 ? states.dead++ : states.live++;
     return states;
 }
 
 const initGrid = (rows, cols) => {
-    cells = [];
+    currentGen = [];
     document.querySelector('.container').innerHTML = '';
     for (let i = 0; i < rows * cols; i++) {
         const div = document.createElement('div');
         const rand = Math.random() < ALIVE_PROBABILITY ? 0 : 1;
-        cells.push(rand);
+        currentGen.push(rand);
         div.setAttribute('data-state', rand);
         document.querySelector('.container').append(div);
         div.addEventListener('click', () => {
             const state = Number(!Number(div.dataset.state))
             div.dataset.state = state;
-            cells[i] = state;
+            currentGen[i] = state;
         });
     }
 }
@@ -74,23 +74,23 @@ const initGrid = (rows, cols) => {
 const simulate = async () => {
     while (true) {
         let changes = 0;
-        next = [...cells];
+        nextGen = [...currentGen];
         await delay(DELAY_MS);
-        cells.forEach(async (cell, i) => {
+        currentGen.forEach(async (cell, i) => {
             const x = i % dims[1];
             const y = Math.floor(i / dims[1]);
             const neighbours = getNeighbourStates(x, y);
             if (cell === 0 && neighbours.live === 3) {
-                next[i] = 1;
+                nextGen[i] = 1;
                 document.querySelectorAll('.container div')[i].dataset.state = 1;
                 changes++;
             } else if (cell === 1 && neighbours.live !== 2 && neighbours.live !== 3) {
-                next[i] = 0;
+                nextGen[i] = 0;
                 document.querySelectorAll('.container div')[i].dataset.state = 0;
                 changes++;
             }
         });
-        cells = next;
+        currentGen = nextGen;
         if (changes === 0 || paused) break;
     }
     console.log('ended');
@@ -127,8 +127,8 @@ document.querySelector('#pause').addEventListener('click', () => paused = true);
 
 document.querySelector('#clear').addEventListener('click', () => {
     document.querySelectorAll('.container div').forEach((div) => div.dataset.state = 0);
-    cells = new Array(dims[0] * dims[1]).fill(0);
-    next = [];
+    currentGen = new Array(dims[0] * dims[1]).fill(0);
+    nextGen = [];
 });
 
 initGrid(dims[0], dims[1]);
