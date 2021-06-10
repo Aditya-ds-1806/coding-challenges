@@ -32,8 +32,8 @@ const initPickr = () => {
     pickr.on('change', (color, src, instance) => {
         const root = document.documentElement;
         root.style.setProperty('--color', color.toRGBA().toString());
-        const [r, g, b, a] = color.toRGBA();
-        root.style.setProperty('--h1-color', `rgb(${255 - r}, ${255 - g}, ${255 - b})`);
+        const [h, s, l, a] = color.toHSLA();
+        root.style.setProperty('--h1-color', `hsl(${h}deg ${s}% ${l > 50 ? l - 30 : l + 30}%)`);
         instance.applyColor();
     });
 }
