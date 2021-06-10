@@ -4,6 +4,8 @@ let currentGen, nextGen;
 let DELAY_MS = 500;
 let ALIVE_PROBABILITY = 0.5;
 let paused = false;
+let generations = 0;
+let population = 0;
 const libModal = new bootstrap.Modal(document.getElementById('library-modal'));
 
 const initPickr = () => {
@@ -64,6 +66,8 @@ const initGrid = (dims, random = false) => {
     for (let i = 0; i < dims[0] * dims[1]; i++) {
         const div = document.createElement('div');
         const rand = random ? Math.random() < ALIVE_PROBABILITY ? 0 : 1 : 0;
+        if (rand) population++;
+        updatePopulation();
         currentGen.push(rand);
         div.setAttribute('data-state', rand);
         document.querySelector('.container').append(div);
@@ -77,8 +81,9 @@ const initGrid = (dims, random = false) => {
 }
 
 const simulate = async () => {
-    while (true) {
-        let changes = 0;
+    let changes;
+    while (changes !== 0 && !paused) {
+        changes = 0;
         nextGen = [...currentGen];
         await delay(DELAY_MS);
         currentGen.forEach(async (cell, i) => {
@@ -89,14 +94,18 @@ const simulate = async () => {
                 nextGen[i] = 1;
                 cells[i].dataset.state = 1;
                 changes++;
+                population++;
             } else if (cell === 1 && neighbours.live !== 2 && neighbours.live !== 3) {
                 nextGen[i] = 0;
                 cells[i].dataset.state = 0;
                 changes++;
+                population--;
             }
+            updatePopulation();
         });
         currentGen = nextGen;
-        if (changes === 0 || paused) break;
+        generations++;
+        updateGenerations();
     }
     console.log('ended');
 }
@@ -128,6 +137,10 @@ const pause = () => paused = true;
 const clearGrid = () => {
     pause();
     setTimeout(() => {
+        generations = 0;
+        population = 0;
+        updatePopulation();
+        updateGenerations();
         cells.forEach((div) => div.dataset.state = 0);
         currentGen = new Array(dims[0] * dims[1]).fill(0);
         nextGen = [];
@@ -141,7 +154,17 @@ const loadPattern = (img) => {
     live.split(',').forEach((idx) => {
         cells[idx].dataset.state = 1;
         currentGen[idx] = 1;
+        population++;
+        updatePopulation();
     });
+}
+
+const updateGenerations = () => {
+    document.querySelector('#generation').textContent = generations;
+}
+
+const updatePopulation = () => {
+    document.querySelector('#population').textContent = population;
 }
 
 document.querySelector('#rows').addEventListener('input', function () {
@@ -159,6 +182,10 @@ document.querySelector('#pause').addEventListener('click', pause);
 document.querySelector('#clear').addEventListener('click', clearGrid);
 document.querySelectorAll('#library-modal img').forEach(img => {
     img.addEventListener('click', () => {
+        generations = 0;
+        population = 0;
+        updatePopulation();
+        updateGenerations();
         loadPattern(img);
         libModal.hide();
     });
