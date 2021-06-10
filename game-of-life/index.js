@@ -73,6 +73,8 @@ const initGrid = (dims, random = false) => {
         document.querySelector('.container').append(div);
         div.addEventListener('click', () => {
             const state = Number(!Number(div.dataset.state))
+            state === 1 ? population++ : population--;
+            updatePopulation();
             div.dataset.state = state;
             currentGen[i] = state;
         });
