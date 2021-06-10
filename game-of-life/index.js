@@ -137,17 +137,20 @@ const play = () => {
 
 const pause = () => paused = true;
 
-const clearGrid = () => {
+const clearGrid = async () => {
     pause();
-    setTimeout(() => {
-        generations = 0;
-        population = 0;
-        updatePopulation();
-        updateGenerations();
-        cells.forEach((div) => div.dataset.state = 0);
-        currentGen = new Array(dims[0] * dims[1]).fill(0);
-        nextGen = [];
-    }, DELAY_MS);
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            generations = 0;
+            population = 0;
+            updatePopulation();
+            updateGenerations();
+            cells.forEach((div) => div.dataset.state = 0);
+            currentGen = new Array(dims[0] * dims[1]).fill(0);
+            nextGen = [];
+            resolve();
+        }, DELAY_MS);
+    })
 }
 
 const loadPattern = (img) => {
@@ -184,11 +187,12 @@ document.querySelector('#play').addEventListener('click', play);
 document.querySelector('#pause').addEventListener('click', pause);
 document.querySelector('#clear').addEventListener('click', clearGrid);
 document.querySelectorAll('#library-modal img').forEach(img => {
-    img.addEventListener('click', () => {
+    img.addEventListener('click', async () => {
         generations = 0;
         population = 0;
         updatePopulation();
         updateGenerations();
+        await clearGrid();
         loadPattern(img);
         libModal.hide();
     });
