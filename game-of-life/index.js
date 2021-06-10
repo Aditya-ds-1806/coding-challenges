@@ -61,7 +61,7 @@ const getNeighbourStates = (x, y) => {
     return states;
 }
 
-const initGrid = (dims, random = false) => {
+const initGrid = (random = false) => {
     currentGen = [];
     document.querySelector('#grid').innerHTML = '';
     for (let i = 0; i < dims[0] * dims[1]; i++) {
@@ -156,7 +156,7 @@ const clearGrid = async () => {
 const loadPattern = (img) => {
     const { rows, cols, live } = img.dataset;
     setDims(rows, cols);
-    initGrid(dims);
+    initGrid();
     live.split(',').forEach((idx) => {
         cells[idx].dataset.state = 1;
         currentGen[idx] = 1;
@@ -180,7 +180,7 @@ document.querySelector('#rows').addEventListener('input', function () {
     updatePopulation();
     updateGenerations();
     setDims(this.value);
-    initGrid(dims, true);
+    initGrid(true);
 });
 document.querySelector('#cols').addEventListener('input', function () {
     pause();
@@ -189,7 +189,7 @@ document.querySelector('#cols').addEventListener('input', function () {
     updatePopulation();
     updateGenerations();
     setDims(undefined, this.value);
-    initGrid(dims, true);
+    initGrid(true);
 });
 document.querySelector('#delay').addEventListener('input', setDelay);
 document.querySelector('#liveProbability').addEventListener('input', setProbability);
@@ -198,7 +198,7 @@ document.querySelector('#random').addEventListener('click', () => {
     population = 0;
     updatePopulation();
     updateGenerations();
-    initGrid(dims, true);
+    initGrid(true);
 });
 document.querySelector('#play').addEventListener('click', play);
 document.querySelector('#pause').addEventListener('click', pause);
@@ -216,5 +216,5 @@ document.querySelectorAll('#library-modal img').forEach(img => {
 });
 
 initPickr();
-initGrid(dims, true);
+initGrid(true);
 simulate();
