@@ -137,12 +137,16 @@ const play = () => {
 
 const pause = () => paused = true;
 
+const resetStats = () => {
+    generations = 0;
+    population = 0;
+}
+
 const clearGrid = async () => {
     pause();
     return new Promise((resolve) => {
         setTimeout(() => {
-            generations = 0;
-            population = 0;
+            resetStats();
             updatePopulation();
             updateGenerations();
             cells.forEach((div) => div.dataset.state = 0);
@@ -173,31 +177,20 @@ const updatePopulation = () => {
     document.querySelector('#population').textContent = population;
 }
 
-document.querySelector('#rows').addEventListener('input', function () {
-    pause();
-    generations = 0;
-    population = 0;
-    updatePopulation();
-    updateGenerations();
+document.querySelector('#rows').addEventListener('change', async function () {
+    await clearGrid();
     setDims(this.value);
     initGrid(true);
 });
-document.querySelector('#cols').addEventListener('input', function () {
-    pause();
-    generations = 0;
-    population = 0;
-    updatePopulation();
-    updateGenerations();
+document.querySelector('#cols').addEventListener('change', async function () {
+    await clearGrid();
     setDims(undefined, this.value);
     initGrid(true);
 });
 document.querySelector('#delay').addEventListener('input', setDelay);
 document.querySelector('#liveProbability').addEventListener('input', setProbability);
-document.querySelector('#random').addEventListener('click', () => {
-    generations = 0;
-    population = 0;
-    updatePopulation();
-    updateGenerations();
+document.querySelector('#random').addEventListener('click', async () => {
+    await clearGrid();
     initGrid(true);
 });
 document.querySelector('#play').addEventListener('click', play);
@@ -205,10 +198,6 @@ document.querySelector('#pause').addEventListener('click', pause);
 document.querySelector('#clear').addEventListener('click', clearGrid);
 document.querySelectorAll('#library-modal img').forEach(img => {
     img.addEventListener('click', async () => {
-        generations = 0;
-        population = 0;
-        updatePopulation();
-        updateGenerations();
         await clearGrid();
         loadPattern(img);
         libModal.hide();
