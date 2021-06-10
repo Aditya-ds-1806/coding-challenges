@@ -14,6 +14,7 @@ const initPickr = () => {
         theme: 'classic',
         conparison: false,
         swatches: null,
+        default: 'rgba(70.7689, 29.3523, 185.273, 1)',
         components: {
             preview: true,
             opacity: true,
