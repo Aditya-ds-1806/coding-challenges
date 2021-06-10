@@ -138,7 +138,10 @@ const loadPattern = (img) => {
     const { rows, cols, live } = img.dataset;
     setDims(rows, cols);
     initGrid(dims);
-    live.split(',').forEach((idx) => cells[idx].dataset.state = 1);
+    live.split(',').forEach((idx) => {
+        cells[idx].dataset.state = 1;
+        currentGen[idx] = 1;
+    });
 }
 
 document.querySelector('#rows').addEventListener('input', function () {
