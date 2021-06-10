@@ -174,10 +174,20 @@ const updatePopulation = () => {
 }
 
 document.querySelector('#rows').addEventListener('input', function () {
+    pause();
+    generations = 0;
+    population = 0;
+    updatePopulation();
+    updateGenerations();
     setDims(this.value);
     initGrid(dims, true);
 });
 document.querySelector('#cols').addEventListener('input', function () {
+    pause();
+    generations = 0;
+    population = 0;
+    updatePopulation();
+    updateGenerations();
     setDims(undefined, this.value);
     initGrid(dims, true);
 });
