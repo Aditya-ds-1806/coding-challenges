@@ -193,6 +193,13 @@ document.querySelector('#cols').addEventListener('input', function () {
 });
 document.querySelector('#delay').addEventListener('input', setDelay);
 document.querySelector('#liveProbability').addEventListener('input', setProbability);
+document.querySelector('#random').addEventListener('click', () => {
+    generations = 0;
+    population = 0;
+    updatePopulation();
+    updateGenerations();
+    initGrid(dims, true);
+});
 document.querySelector('#play').addEventListener('click', play);
 document.querySelector('#pause').addEventListener('click', pause);
 document.querySelector('#clear').addEventListener('click', clearGrid);
