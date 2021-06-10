@@ -18,6 +18,10 @@ nav {
     border-bottom: 3px solid #FFF;
 }
 
+#stats {
+    color: var(--h1-color);
+}
+
 svg#cog {
     color: var(--h1-color);
 }
