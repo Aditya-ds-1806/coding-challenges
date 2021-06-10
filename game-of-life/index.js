@@ -66,7 +66,7 @@ const initGrid = (random = false) => {
     document.querySelector('#grid').innerHTML = '';
     for (let i = 0; i < dims[0] * dims[1]; i++) {
         const div = document.createElement('div');
-        const rand = random ? Math.random() < ALIVE_PROBABILITY ? 0 : 1 : 0;
+        const rand = random ? Math.random() > ALIVE_PROBABILITY ? 0 : 1 : 0;
         if (rand) population++;
         updatePopulation();
         currentGen.push(rand);
