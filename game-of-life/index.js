@@ -62,7 +62,7 @@ const getNeighbourStates = (x, y) => {
 
 const initGrid = (dims, random = false) => {
     currentGen = [];
-    document.querySelector('.container').innerHTML = '';
+    document.querySelector('#grid').innerHTML = '';
     for (let i = 0; i < dims[0] * dims[1]; i++) {
         const div = document.createElement('div');
         const rand = random ? Math.random() < ALIVE_PROBABILITY ? 0 : 1 : 0;
@@ -70,7 +70,7 @@ const initGrid = (dims, random = false) => {
         updatePopulation();
         currentGen.push(rand);
         div.setAttribute('data-state', rand);
-        document.querySelector('.container').append(div);
+        document.querySelector('#grid').append(div);
         div.addEventListener('click', () => {
             const state = Number(!Number(div.dataset.state))
             state === 1 ? population++ : population--;
@@ -79,7 +79,7 @@ const initGrid = (dims, random = false) => {
             currentGen[i] = state;
         });
     }
-    cells = document.querySelectorAll('.container div');
+    cells = document.querySelectorAll('#grid div');
 }
 
 const simulate = async () => {

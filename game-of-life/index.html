@@ -17,9 +17,11 @@
 <body class="d-flex flex-column vh-100">
     <nav class="navbar">
         <div class="container-fluid">
-            <h1 class="fs-1 navbar-brand mb-0">
-                <img src="assets/life.gif" width="50" alt="life.gif" class="d-inline-block align-top img-fluid">
-                John Conway's Game of Life Simulation
+            <h1 class="fs-1 navbar-brand mb-0 justify-content-center">
+                <img src="assets/life.gif" width="50" alt="life.gif" class="d-inline-block align-middle img-fluid">
+                <span class="d-none d-xl-inline">John Conway's</span>
+                <span class="d-none d-sm-inline">Game of Life</span>
+                <span class="d-none d-xl-inline"> Simulation</span>
             </h1>
             <div class="d-flex align-items-center">
                 <div class="me-4 fw-bold" id="stats">
@@ -37,7 +39,7 @@
             </div>
         </div>
     </nav>
-    <div class="container h-100 border border-3 p-0">
+    <div class="container-fluid h-100 border border-3 p-0" id="grid">
     </div>
     <div class="modal fade" id="settings" tabindex="-1">
         <div class="modal-dialog">
