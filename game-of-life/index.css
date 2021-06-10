@@ -1,8 +1,8 @@
 :root {
-    --color: #000;
+    --color: rgba(70.7689, 29.3523, 185.273, 1);
     --rows: 10;
     --cols: 10;
-    --h1-color: #FFF;
+    --h1-color: hsl(255.938deg 72.6479% 72.0835%);
 }
 
 body {
@@ -15,7 +15,7 @@ nav h1 {
 
 nav {
     background-color: var(--color);
-    border-bottom: 3px solid var(--h1-color);
+    border-bottom: 3px solid #FFF;
 }
 
 svg#cog {
@@ -50,8 +50,21 @@ div.container div[data-state='1'] {
     background-color: var(--color);
 }
 
+#library-modal img {
+    cursor: pointer;
+}
+
+.modal-content {
+    background-color: var(--color);
+    color: var(--h1-color);
+}
+
+div.pickr button {
+    border: 2px solid var(--h1-color);
+}
+
 footer {
     background-color: var(--color);
     color: var(--h1-color);
-    border-top: 3px solid var(--h1-color);
+    border-top: 3px solid #FFF;
 }
