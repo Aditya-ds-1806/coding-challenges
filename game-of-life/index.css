@@ -15,7 +15,6 @@ nav h1 {
 
 nav {
     background-color: var(--color);
-    border-bottom: 3px solid #FFF;
 }
 
 nav img {
@@ -73,7 +72,6 @@ div.pickr button {
 footer {
     background-color: var(--color);
     color: var(--h1-color);
-    border-top: 3px solid #FFF;
 }
 
 svg {
