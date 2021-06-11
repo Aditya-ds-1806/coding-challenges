@@ -237,6 +237,7 @@ document.querySelectorAll('#library-modal img').forEach(img => {
     img.addEventListener('click', async () => {
         await clearGrid();
         loadPattern(img);
+        resizeGrid();
         libModal.hide();
     });
 });
