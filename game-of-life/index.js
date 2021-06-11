@@ -177,15 +177,36 @@ const updatePopulation = () => {
     document.querySelector('#population').textContent = population;
 }
 
+const resizeGrid = () => {
+    const root = document.documentElement;
+    const width = window.innerWidth;
+    let height = window.innerHeight;
+    let cellWidth;
+    height -= document.querySelector('nav').offsetHeight;
+    height -= document.querySelector('footer').offsetHeight;
+    if (width < height) {
+        cellWidth = width / dims[1];
+    }
+    else {
+        cellWidth = height / dims[0];
+        if (cellWidth * dims[1] > width) {
+            cellWidth = width / dims[1];
+        };
+    }
+    root.style.setProperty('--cell-width', `${cellWidth}px`);
+}
+
 document.querySelector('#rows').addEventListener('change', async function () {
     await clearGrid();
     setDims(this.value);
     initGrid(true);
+    resizeGrid();
 });
 document.querySelector('#cols').addEventListener('change', async function () {
     await clearGrid();
     setDims(undefined, this.value);
     initGrid(true);
+    resizeGrid();
 });
 document.querySelector('#delay').addEventListener('input', setDelay);
 document.querySelector('#liveProbability').addEventListener('input', setProbability);
@@ -203,6 +224,9 @@ document.querySelectorAll('#library-modal img').forEach(img => {
         libModal.hide();
     });
 });
+
+window.addEventListener('resize', resizeGrid);
+window.addEventListener('load', resizeGrid);
 
 initPickr();
 initGrid(true);

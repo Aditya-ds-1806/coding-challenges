@@ -3,6 +3,7 @@
     --rows: 10;
     --cols: 10;
     --h1-color: hsl(255.938deg 72.6479% 72.0835%);
+    --cell-width: calc(80vh/var(--rows));
 }
 
 body {
@@ -36,6 +37,8 @@ svg#cog {
     gap: 3px 3px;
     background-color: var(--h1-color);
     border-color: var(--h1-color) !important;
+    width: calc(var(--cell-width)*var(--cols));
+    height: calc(var(--cell-width)*var(--rows));
 }
 
 #grid div {
