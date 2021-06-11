@@ -26,10 +26,6 @@ nav img {
     color: var(--h1-color);
 }
 
-svg#cog {
-    color: var(--h1-color);
-}
-
 #grid {
     display: grid;
     grid-template-rows: repeat(var(--rows), 1fr);
@@ -78,6 +74,7 @@ footer {
 }
 
 svg {
+    color: var(--h1-color);
     transition: all 400ms;
 }
 
