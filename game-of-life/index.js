@@ -4,9 +4,21 @@ let currentGen, nextGen;
 let DELAY_MS = 500;
 let ALIVE_PROBABILITY = 0.5;
 let paused = false;
+let sound = true;
 let generations = 0;
 let population = 0;
 const libModal = new bootstrap.Modal(document.getElementById('library-modal'));
+const audioCtx = new (AudioContext || webkitAudioContext)();
+
+const playTone = () => {
+    const osc = audioCtx.createOscillator();
+    const freq = (population / (dims[0] * dims[1])) * 1700 + 300;
+    osc.connect(audioCtx.destination);
+    osc.type = 'sine';
+    osc.frequency.value = freq;
+    osc.start();
+    osc.stop(audioCtx.currentTime + (DELAY_MS / 1000));
+}
 
 const initPickr = () => {
     const pickr = Pickr.create({
@@ -106,6 +118,7 @@ const simulate = async () => {
             }
             updatePopulation();
         });
+        if (sound) playTone();
         currentGen = nextGen;
         generations++;
         updateGenerations();
@@ -226,6 +239,16 @@ document.querySelectorAll('#library-modal img').forEach(img => {
         loadPattern(img);
         libModal.hide();
     });
+});
+document.querySelector('#mute').addEventListener('click', function () {
+    sound = true;
+    this.classList.add('d-none');
+    document.querySelector('#unmute').classList.remove('d-none');
+});
+document.querySelector('#unmute').addEventListener('click', function () {
+    sound = false;
+    this.classList.add('d-none');
+    document.querySelector('#mute').classList.remove('d-none');
 });
 
 window.addEventListener('resize', resizeGrid);
