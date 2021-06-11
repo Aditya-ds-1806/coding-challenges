@@ -179,13 +179,16 @@ const updatePopulation = () => {
 
 const resizeGrid = () => {
     const root = document.documentElement;
-    const width = window.innerWidth;
-    let height = window.innerHeight;
+    const width = root.offsetWidth;
+    let height = root.offsetHeight;
     let cellWidth;
     height -= document.querySelector('nav').offsetHeight;
     height -= document.querySelector('footer').offsetHeight;
     if (width < height) {
         cellWidth = width / dims[1];
+        if (cellWidth * dims[0] > height) {
+            cellWidth = height / dims[0];
+        }
     }
     else {
         cellWidth = height / dims[0];
