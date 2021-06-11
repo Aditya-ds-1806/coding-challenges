@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="index.css">
 </head>
 
-<body class="d-flex flex-column vh-100">
+<body class="d-flex flex-column justify-content-between vh-100">
     <nav class="navbar">
         <div class="container-fluid">
             <h1 class="fs-1 navbar-brand mb-0 justify-content-center">
@@ -30,7 +30,7 @@
                 </div>
                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none"
                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" role="button"
-                    data-bs-toggle="modal" data-bs-target="#settings" id="cog">
+                    data-bs-toggle="modal" data-bs-target="#settings" id="cog" tabindex="0">
                     <circle cx="12" cy="12" r="3"></circle>
                     <path
                         d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z">
@@ -39,7 +39,7 @@
             </div>
         </div>
     </nav>
-    <div class="container-fluid h-100 border border-3 p-0" id="grid">
+    <div class="container-fluid border border-3 p-0" id="grid">
     </div>
     <div class="modal fade" id="settings" tabindex="-1">
         <div class="modal-dialog">
@@ -86,24 +86,24 @@
                         <hr class="mt-0 mb-4">
                         <div class="row">
                             <div class="col-4 text-center mb-3">
-                                <img src="assets/block.jpg" height="100" alt="life" data-rows="6" data-cols="6"
-                                    data-live="14,15,20,21">
+                                <img class="img-fluid" src="assets/block.jpg" height="100" alt="life" data-rows="6"
+                                    data-cols="6" data-live="14,15,20,21">
                             </div>
                             <div class="col-4 text-center mb-3">
-                                <img src="assets/beehive.jpg" height="100" alt="beehive" data-rows="7" data-cols="8"
-                                    data-live="19,20,26,29,35,36">
+                                <img class="img-fluid" src="assets/beehive.jpg" height="100" alt="beehive" data-rows="7"
+                                    data-cols="8" data-live="19,20,26,29,35,36">
                             </div>
                             <div class="col-4 text-center mb-3">
-                                <img src="assets/loaf.jpg" height="100" alt="loaf" data-rows="8" data-cols="8"
-                                    data-live="19,20,26,29,35,37,44">
+                                <img class="img-fluid" src="assets/loaf.jpg" height="100" alt="loaf" data-rows="8"
+                                    data-cols="8" data-live="19,20,26,29,35,37,44">
                             </div>
                             <div class="col-4 text-center mb-3">
-                                <img src="assets/boat.jpg" height="100" alt="boat" data-rows="7" data-cols="7"
-                                    data-live="16,17,23,25,31">
+                                <img class="img-fluid" src="assets/boat.jpg" height="100" alt="boat" data-rows="7"
+                                    data-cols="7" data-live="16,17,23,25,31">
                             </div>
                             <div class="col-4 text-center mb-3">
-                                <img src="assets/tub.jpg" height="100" alt="tub" data-rows="7" data-cols="7"
-                                    data-live="17,23,25,31">
+                                <img class="img-fluid" src="assets/tub.jpg" height="100" alt="tub" data-rows="7"
+                                    data-cols="7" data-live="17,23,25,31">
                             </div>
                         </div>
                     </section>
@@ -112,24 +112,26 @@
                         <hr class="mt-0 mb-4">
                         <div class="row">
                             <div class="col-4 text-center mb-3">
-                                <img src="assets/blinker.gif" height="100" alt="blinker" data-rows="7" data-cols="7"
-                                    data-live="23,24,25">
+                                <img class="img-fluid" src="assets/blinker.gif" height="100" alt="blinker" data-rows="7"
+                                    data-cols="7" data-live="23,24,25">
                             </div>
                             <div class="col-4 text-center mb-3">
-                                <img src="assets/toad.gif" height="100" alt="toad" data-rows="8" data-cols="8"
-                                    data-live="27,28,29,34,35,36">
+                                <img class="img-fluid" src="assets/toad.gif" height="100" alt="toad" data-rows="8"
+                                    data-cols="8" data-live="27,28,29,34,35,36">
                             </div>
                             <div class="col-4 text-center mb-3">
-                                <img src="assets/beacon.gif" height="100" alt="beacon" data-rows="8" data-cols="8"
-                                    data-live="18,19,26,37,45,44">
+                                <img class="img-fluid" src="assets/beacon.gif" height="100" alt="beacon" data-rows="8"
+                                    data-cols="8" data-live="18,19,26,37,45,44">
                             </div>
                             <div class="col-4 text-center mb-3">
-                                <img src="assets/pulsar.gif" height="100" alt="pulsar" data-rows="19" data-cols="19"
+                                <img class="img-fluid" src="assets/pulsar.gif" height="100" alt="pulsar" data-rows="19"
+                                    data-cols="19"
                                     data-live="62,63,64,68,69,70,103,122,141,105,124,143,159,158,157,163,164,165,195,196,197,217,236,255,219,238,257,201,202,203,292,291,290,296,297,298,148,129,110,136,117,98,212,231,250,224,243,262">
                             </div>
                             <div class="col-4 text-center mb-3">
-                                <img src="assets/penta-decathlon.gif" height="100" alt="penta-decathlon" data-rows="20"
-                                    data-cols="13" data-live="71,84,96,98,110,123,136,149,161,163,175,188">
+                                <img class="img-fluid" src="assets/penta-decathlon.gif" height="100"
+                                    alt="penta-decathlon" data-rows="20" data-cols="13"
+                                    data-live="71,84,96,98,110,123,136,149,161,163,175,188">
                             </div>
                         </div>
                     </section>
@@ -138,20 +140,20 @@
                         <hr class="mt-0 mb-4">
                         <div class="row">
                             <div class="col-4 text-center mb-3">
-                                <img src="assets/glider.gif" height="100" alt="glider" data-rows="23" data-cols="39"
-                                    data-live="78,79,80,41,1">
+                                <img class="img-fluid" src="assets/glider.gif" height="100" alt="glider" data-rows="23"
+                                    data-cols="39" data-live="78,79,80,41,1">
                             </div>
                             <div class="col-4 text-center mb-3">
-                                <img src="assets/LWSS.gif" height="100" alt="LWSS" data-rows="23" data-cols="39"
-                                    data-live="273,276,316,355,394,393,392,391,351">
+                                <img class="img-fluid" src="assets/LWSS.gif" height="100" alt="LWSS" data-rows="23"
+                                    data-cols="39" data-live="273,276,316,355,394,393,392,391,351">
                             </div>
                             <div class="col-4 text-center mb-3">
-                                <img src="assets/MWSS.gif" height="100" alt="MWSS" data-rows="23" data-cols="39"
-                                    data-live="312,274,275,276,277,278,317,356,394,390,431">
+                                <img class="img-fluid" src="assets/MWSS.gif" height="100" alt="MWSS" data-rows="23"
+                                    data-cols="39" data-live="312,274,275,276,277,278,317,356,394,390,431">
                             </div>
                             <div class="col-4 text-center mb-3">
-                                <img src="assets/HWSS.gif" height="100" alt="HWSS" data-rows="23" data-cols="39"
-                                    data-live="312,390,430,431,432,433,434,435,396,357,317,276,275">
+                                <img class="img-fluid" src="assets/HWSS.gif" height="100" alt="HWSS" data-rows="23"
+                                    data-cols="39" data-live="312,390,430,431,432,433,434,435,396,357,317,276,275">
                             </div>
                         </div>
                     </section>
@@ -161,31 +163,31 @@
     </div>
     <footer class="text-center py-2">
         <svg width="40" height="40" class="mx-3" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"
-            id="random">
+            id="random" tabindex="0">
             <path fill="currentColor"
                 d="M592 192H473.26c12.69 29.59 7.12 65.2-17 89.32L320 417.58V464c0 26.51 21.49 48 48 48h224c26.51 0 48-21.49 48-48V240c0-26.51-21.49-48-48-48zM480 376c-13.25 0-24-10.75-24-24 0-13.26 10.75-24 24-24s24 10.74 24 24c0 13.25-10.75 24-24 24zm-46.37-186.7L258.7 14.37c-19.16-19.16-50.23-19.16-69.39 0L14.37 189.3c-19.16 19.16-19.16 50.23 0 69.39L189.3 433.63c19.16 19.16 50.23 19.16 69.39 0L433.63 258.7c19.16-19.17 19.16-50.24 0-69.4zM96 248c-13.25 0-24-10.75-24-24 0-13.26 10.75-24 24-24s24 10.74 24 24c0 13.25-10.75 24-24 24zm128 128c-13.25 0-24-10.75-24-24 0-13.26 10.75-24 24-24s24 10.74 24 24c0 13.25-10.75 24-24 24zm0-128c-13.25 0-24-10.75-24-24 0-13.26 10.75-24 24-24s24 10.74 24 24c0 13.25-10.75 24-24 24zm0-128c-13.25 0-24-10.75-24-24 0-13.26 10.75-24 24-24s24 10.74 24 24c0 13.25-10.75 24-24 24zm128 128c-13.25 0-24-10.75-24-24 0-13.26 10.75-24 24-24s24 10.74 24 24c0 13.25-10.75 24-24 24z">
             </path>
         </svg>
         <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none"
             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mx-3"
-            role="button" id="play">
+            role="button" id="play" tabindex="0">
             <polygon points="5 3 19 12 5 21 5 3"></polygon>
         </svg>
         <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none"
             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mx-3"
-            role="button" id="pause">
+            role="button" id="pause" tabindex="0">
             <rect x="6" y="4" width="4" height="16"></rect>
             <rect x="14" y="4" width="4" height="16"></rect>
         </svg>
         <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none"
             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mx-3"
-            role="button" id="clear">
+            role="button" id="clear" tabindex="0">
             <line x1="18" y1="6" x2="6" y2="18"></line>
             <line x1="6" y1="6" x2="18" y2="18"></line>
         </svg>
         <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none"
             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mx-3"
-            role="button" data-bs-toggle="modal" data-bs-target="#library-modal" id="library">
+            role="button" data-bs-toggle="modal" data-bs-target="#library-modal" id="library" tabindex="0">
             <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" />
             <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" />
         </svg>
