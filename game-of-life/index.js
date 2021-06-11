@@ -251,9 +251,20 @@ document.querySelector('#unmute').addEventListener('click', function () {
     this.classList.add('d-none');
     document.querySelector('#mute').classList.remove('d-none');
 });
+document.querySelectorAll("svg[tabindex]").forEach((svg) => {
+    svg.addEventListener('keydown', (e) => {
+        e.stopPropagation();
+        if (e.key !== ' ' && e.key !== 'Enter') return;
+        svg.dispatchEvent(new Event('click'));
+    });
+});
 
 window.addEventListener('resize', resizeGrid);
 window.addEventListener('load', resizeGrid);
+window.addEventListener('keydown', (e) => {
+    if (e.key !== ' ') return;
+    paused ? play() : pause();
+});
 
 initPickr();
 initGrid(true);
