@@ -57,6 +57,14 @@ const delay = (ms) => {
     return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
+const toggleCellState = function (idx) {
+    const state = Number(!Number(this.dataset.state))
+    state === 1 ? population++ : population--;
+    updatePopulation();
+    this.dataset.state = state;
+    currentGen[idx] = state;
+}
+
 const getNeighbourStates = (x, y) => {
     const states = {
         live: 0,
@@ -84,12 +92,10 @@ const initGrid = (random = false) => {
         currentGen.push(rand);
         div.setAttribute('data-state', rand);
         document.querySelector('#grid').append(div);
-        div.addEventListener('click', () => {
-            const state = Number(!Number(div.dataset.state))
-            state === 1 ? population++ : population--;
-            updatePopulation();
-            div.dataset.state = state;
-            currentGen[i] = state;
+        div.addEventListener('mousedown', toggleCellState.bind(div, i));
+        div.addEventListener('mouseover', (e) => {
+            if (e.buttons !== 1) return;
+            toggleCellState.call(div, i);
         });
     }
     cells = document.querySelectorAll('#grid div');
